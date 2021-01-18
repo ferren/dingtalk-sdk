@@ -26,6 +26,7 @@ class DingTalkClient(BaseClient, TaobaoMixin):
     checkin = api.Checkin()
     cspace = api.Cspace()
     department = api.Department()
+    department_v2 = api.DepartmentV2()
     ext = api.Ext()
     extcontact = api.ExtContact()
     employeerm = api.Employeerm()
@@ -35,6 +36,7 @@ class DingTalkClient(BaseClient, TaobaoMixin):
     report = api.Report()
     role = api.Role()
     user = api.User()
+    user_v2 = api.UserV2()
     workrecord = api.WorkRecord()
 
     def __init__(self, corp_id, prefix='client', storage=None, timeout=None, auto_retry=True):
