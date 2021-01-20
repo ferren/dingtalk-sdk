@@ -138,7 +138,7 @@ class AppKeyClient(DingTalkClient):
         self.app_key = app_key
         self.app_secret = app_secret
         super(AppKeyClient, self).__init__(corp_id, 'secret:' + corp_id, storage, timeout, auto_retry)
-        self.crypto = DingTalkCrypto(token, aes_key, corp_id)
+        self.crypto = DingTalkCrypto(token, aes_key, app_key)
 
     def get_access_token_key(self):
         return "app_key:%s" % self.app_key
