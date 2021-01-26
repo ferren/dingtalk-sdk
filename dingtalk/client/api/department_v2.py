@@ -6,20 +6,21 @@ from dingtalk.client.api.base import DingTalkBaseAPI
 
 class DepartmentV2(DingTalkBaseAPI):
 
-    def get(self, _id, lang='zh_CN'):
+    def get(self, dept_id, language='zh_CN'):
         """
         获取部门详情 (官方未更新，无v2版本新接口)
 
         详情请参考
-        https://ding-doc.dingtalk.com/document/app/queries-department-details
+        https://ding-doc.dingtalk.com/document/app/query-department-details0-v2
 
-        :param _id: 部门id
+        :param dept_id: 部门id
         :param lang: 通讯录语言(默认zh_CN，未来会支持en_US)
         :return: 部门列表数据。以部门的order字段从小到大排列
         """
-        return self._get(
-            '/department/get',
-            {'id': _id, 'lang': lang}
+        return self._post(
+            '/topapi/v2/department/get',
+            {'dept_id': dept_id, 'language': language},
+            result_processor=lambda x: x.get('result', {})
         )
 
     def list(self, dept_id=1, language='zh_CN'):
@@ -53,10 +54,7 @@ class DepartmentV2(DingTalkBaseAPI):
         """
         if not dept_id:
             dept_info = self.get(1, language)
-            dept_info.update({
-                'dept_id': dept_info['id'],
-            })
-            dept_id = dept_info.pop('id')
+            dept_id = dept_info['dept_id']
             yield dept_info
 
         dept_data = self.list(dept_id, language)
